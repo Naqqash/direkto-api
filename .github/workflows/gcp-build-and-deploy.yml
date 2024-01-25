@@ -6,7 +6,7 @@ on:
       - "**/README.md"
       - "**/.github/workflows/**.yml"
     branches:
-      - main
+      - develop
   workflow_dispatch:
 
 jobs:
