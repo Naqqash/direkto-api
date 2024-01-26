@@ -5,7 +5,17 @@ from app.api.models import models
 from app.api.database import database
 
 
-app = FastAPI()
+app = FastAPI(
+    title="Direkto API",
+    description="This is the API for the direkto project",
+    version="0.0.1",
+)
+
+
+@app.get("/")
+async def root():
+    return {"message": "This is Direkto API v0.0.1"}
+
 
 models.Base.metadata.create_all(bind=database.engine)
 
