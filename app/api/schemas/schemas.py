@@ -1,6 +1,6 @@
 # schemas.py
 from pydantic import UUID4, BaseModel
-from typing import Optional
+from typing import Optional, List
 
 
 class UserBase(BaseModel):
@@ -8,6 +8,20 @@ class UserBase(BaseModel):
     email: str
 
 
+class Movie(BaseModel):
+    title: str
+    overview: str
+    media_type: str
+    popularity: float
+
+
+class Creator(BaseModel):
+    name: str
+    known_for_department: str
+    movies: List[Movie]
+
+
+# add the creator id from the tmdb e.g. spike lee id is 5281
 class UserCreate(UserBase):
     password: str
     password_confirmation: str

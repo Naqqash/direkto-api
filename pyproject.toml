@@ -6,18 +6,17 @@ authors = ["Naqqash <naqqash_ghaffar@hotmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = "uvicorn"
 psycopg2-binary = "^2.9.9"
 passlib = "^1.7.4"
 python-jose = "^3.3.0"
 python-multipart = "^0.0.6"
 bcrypt = "^4.1.2"
 pydantic-settings = "^2.1.0"
-
-[tool.poetry.dev-dependencies]
-uvicorn = "^0.25.0"
-pydantic = "^2.5.3"
+fastapi = "^0.109.0"
+uvicorn = "^0.27.0"
 SQLAlchemy = "^2.0.25"
+requests = "^2.31.0"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -1,0 +1,36 @@
+name: Build and deploy - Development
+
+on:
+  workflow_dispatch: # This allows manual triggering of the workflow
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - uses: actions/checkout@v2
+      - uses: psf/black@stable
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v2
+
+      - name: Setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Authenticate gcloud CLI
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
+      - name: Build and push the Docker image
+        env:
+          GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
+        run: |
+          gcloud auth configure-docker europe-west4-docker.pkg.dev
+          docker build -t europe-west4-docker.pkg.dev/direkto-fastapi/direkto-api/api:latest .
+          docker push europe-west4-docker.pkg.dev/direkto-fastapi/direkto-api/api:latest

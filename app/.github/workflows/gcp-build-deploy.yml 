@@ -1,0 +1,43 @@
+name: Build and deploy - Development
+
+on: 
+ push:
+    paths-ignore:
+      - '**/README.md'
+      - '**/.github/workflows/**.yml'
+    branches:
+      - main
+ workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - uses: actions/checkout@v2
+      - uses: psf/black@stable
+  
+  deploy:
+    runs-on: ubuntu-latest
+    environment: development
+    
+    steps:
+
+    - name: code checkout
+      uses: actions/checkout@v2
+
+    - name: install the gcloud cli
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.GOOGLE_PROJECT }}
+        service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        install_components: 'gke-gcloud-auth-plugin'
+        export_default_credentials: true
+
+    - name: build and push the docker image
+      env:
+        GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
+      run: |
+        gcloud auth configure-docker europe-west4-docker.pkg.dev
+        docker build -t europe-west4-docker.pkg.dev/$GOOGLE_PROJECT/direkto-api/direkto-api:${{ github.sha }} .
+        docker push europe-west4-docker.pkg.dev/$GOOGLE_PROJECT/direkto-api/direkto-api:${{ github.sha }}
