@@ -1,3 +1,0 @@
-config:
-  azure-py-appservice-docker:location: NorthEurope
-  pulumi:template: https://github.com/pulumi/examples/tree/master/azure-py-appservice-docker
