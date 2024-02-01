@@ -7,3 +7,5 @@
 5. Run the server with `uvicorn app.main:app --reload`
 
 Linting checks follow the black formatting style. You can add `"python.formatting.provider": "black"` in your settings.json in Visual Code Studio in order to automatically format according to black every time you save a file. 
+
+
