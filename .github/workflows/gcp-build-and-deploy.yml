@@ -1,12 +1,7 @@
 name: Build and deploy - Development
 
 on:
-  push:
-    paths-ignore:
-      - "**/README.md"
-      - "**/.github/workflows/**.yml"
-
-  workflow_dispatch:
+  workflow_dispatch: # This allows manual triggering of the workflow
 
 jobs:
   lint:
@@ -21,7 +16,7 @@ jobs:
     environment: development
 
     steps:
-      - name: code checkout
+      - name: Code checkout
         uses: actions/checkout@v2
 
       - name: Setup gcloud CLI
@@ -32,7 +27,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
-      - name: build and push the docker image
+      - name: Build and push the Docker image
         env:
           GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
         run: |
