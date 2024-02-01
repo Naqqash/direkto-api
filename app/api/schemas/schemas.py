@@ -21,6 +21,7 @@ class Creator(BaseModel):
     movies: List[Movie]
 
 
+# add the creator id from the tmdb e.g. spike lee id is 5281
 class UserCreate(UserBase):
     password: str
     password_confirmation: str
