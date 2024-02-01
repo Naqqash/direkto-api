@@ -1,0 +1,10 @@
+name: azure-py-appservice-docker
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: Creates Azure App Service and Deploys Docker images to
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: https://github.com/pulumi/examples/blob/master/azure-py-appservice-docker/README.md
